@@ -81,6 +81,10 @@ class BurgerMaker extends Component {
 		this.setState({ showModal: false });
 	};
 
+	continueWithPurchaseHandler = () => {
+		alert('Thanks for your purchase');
+	};
+
 	render() {
 		const disabledInfo = {
 			...this.state.ingredients,
@@ -90,8 +94,16 @@ class BurgerMaker extends Component {
 		}
 		return (
 			<Fragment>
-				<Modal show={this.state.showModal} modalClosed={this.closedModalHandler}>
-					<OrderSummary ingredients={this.state.ingredients} />
+				<Modal
+					show={this.state.showModal}
+					modalClosed={this.closedModalHandler}
+				>
+					<OrderSummary
+						purchaseCanceled={this.closedModalHandler}
+						purchaseContinue={this.continueWithPurchaseHandler}
+						ingredients={this.state.ingredients}
+						price={this.state.totalPrice}
+					/>
 				</Modal>
 				<Burger ingredients={this.state.ingredients} />
 				<BurgerControls
