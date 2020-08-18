@@ -3,7 +3,7 @@ import classes from './BurgerControls.module.css';
 import BurgerControl from './BurgerControl/BurgerControl';
 
 const controls = [
-	{ label: 'Salad', type: 'salad' },
+	{ label: 'Lettuce', type: 'lettuce' },
 	{ label: 'Cheese', type: 'cheese' },
 	{ label: 'Meat', type: 'meat' },
 	{ label: 'Bacon', type: 'bacon' },
