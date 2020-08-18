@@ -16,17 +16,28 @@ const INGREDIENT_PRICES = {
 
 class BurgerMaker extends Component {
 	state = {
-		ingredients: {
-			lettuce: 0,
-			bacon: 0,
-			cheese: 0,
-			meat: 0,
-		},
+		ingredients: [],
 		totalPrice: 5,
 		purchaseable: false,
 		showModal: false,
 		loading: false,
+		error: false,
 	};
+
+	componentDidMount() {
+		axios
+			.get('https://react-burger-b0a20.firebaseio.com/ingredients.json')
+			.then((res) => {
+				this.setState({
+					ingredients: res.data,
+				});
+			})
+			.catch((err) => {
+				this.setState({
+					error: true,
+				});
+			});
+	}
 
 	updatePurchaseState = (ingredients) => {
 		const sum = Object.keys(ingredients)
@@ -134,6 +145,27 @@ class BurgerMaker extends Component {
 		if (this.state.loading) {
 			orderSummary = <Spinner />;
 		}
+		let burger = this.state.error ? (
+			<p>The ingredients can't be loaded</p>
+		) : (
+			<Spinner />
+		);
+		if (this.state.ingredients) {
+			burger = (
+				<Fragment>
+					<Burger ingredients={this.state.ingredients} />
+					<BurgerControls
+						ingredientAdded={this.addIngredientHandler}
+						ingredientRemoved={this.removeIngredientHandler}
+						disabled={disabledInfo}
+						purchaseable={this.state.purchaseable}
+						price={this.state.totalPrice}
+						order={this.modalHandler}
+					/>
+				</Fragment>
+			);
+		}
+
 		return (
 			<Fragment>
 				<Modal
@@ -142,15 +174,7 @@ class BurgerMaker extends Component {
 				>
 					{orderSummary}
 				</Modal>
-				<Burger ingredients={this.state.ingredients} />
-				<BurgerControls
-					ingredientAdded={this.addIngredientHandler}
-					ingredientRemoved={this.removeIngredientHandler}
-					disabled={disabledInfo}
-					purchaseable={this.state.purchaseable}
-					price={this.state.totalPrice}
-					order={this.modalHandler}
-				/>
+				{burger}
 			</Fragment>
 		);
 	}
