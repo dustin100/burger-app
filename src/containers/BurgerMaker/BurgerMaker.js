@@ -96,34 +96,48 @@ class BurgerMaker extends Component {
 	};
 
 	continueWithPurchaseHandler = () => {
-		this.setState({
-			loading: true,
+		// this.setState({
+		// 	loading: true,
+		// });
+		// const order = {
+		// 	ingredients: this.state.ingredients,
+		// 	price: this.state.totalPrice,
+		// 	customer: {
+		// 		name: ' Dustin',
+		// 		address: '123 main st',
+		// 		postalCode: '2g3g4g5',
+		// 	},
+		// 	email: 'name@email.com',
+		// 	deliveryMethod: 'pickup',
+		// };
+		// axios
+		// 	.post('/order.json', order)
+		// 	.then((res) => {
+		// 		this.setState({
+		// 			loading: false,
+		// 			showModal: false,
+		// 		});
+		// 	})
+		// 	.catch((err) => {
+		// 		this.setState({
+		// 			loading: false,
+		// 			showModal: false,
+		// 		});
+		// 	});
+
+		const queryParams = [];
+		for (let i in this.state.ingredients) {
+			queryParams.push(
+				encodeURIComponent(i) +
+					'=' +
+					encodeURIComponent(this.state.ingredients[i])
+			);
+		}
+		const queryString = queryParams.join('&');
+		this.props.history.push({
+			pathname: '/checkout',
+			search: '?' + queryString,
 		});
-		const order = {
-			ingredients: this.state.ingredients,
-			price: this.state.totalPrice,
-			customer: {
-				name: ' Dustin',
-				address: '123 main st',
-				postalCode: '2g3g4g5',
-			},
-			email: 'name@email.com',
-			deliveryMethod: 'pickup',
-		};
-		axios
-			.post('/order.json', order)
-			.then((res) => {
-				this.setState({
-					loading: false,
-					showModal: false,
-				});
-			})
-			.catch((err) => {
-				this.setState({
-					loading: false,
-					showModal: false,
-				});
-			});
 	};
 
 	render() {
