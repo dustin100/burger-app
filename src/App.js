@@ -2,6 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import Layouts from './components/Layouts/Layouts';
 import BurgerMaker from './containers/BurgerMaker/BurgerMaker';
+import Checkout from './containers/Checkout/Checkout';
 
 class App extends Component {
 	render() {
@@ -9,6 +10,7 @@ class App extends Component {
 			<div>
 				<Layouts>
 					<BurgerMaker />
+					<Checkout />
 				</Layouts>
 			</div>
 		);
