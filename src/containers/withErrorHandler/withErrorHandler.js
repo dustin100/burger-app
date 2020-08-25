@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import Modal from '../../components/UI/Modal/Modal';
 
+
 const withErrorHandler = (WrappedComponent, axios) => {
 	return class extends Component {
 		state = {

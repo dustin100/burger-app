@@ -4,6 +4,7 @@ import Layouts from './components/Layouts/Layouts';
 import BurgerMaker from './containers/BurgerMaker/BurgerMaker';
 import Checkout from './containers/Checkout/Checkout';
 import { Route, Switch } from 'react-router-dom';
+import Orders from './containers/Orders/Orders';
 
 class App extends Component {
 	render() {
@@ -12,6 +13,7 @@ class App extends Component {
 				<Layouts>
 					<Switch>
 						<Route path="/checkout" component={Checkout} />
+						<Route path="/orders" component={Orders} />
 						<Route path="/" exact component={BurgerMaker} />
 					</Switch>
 				</Layouts>
